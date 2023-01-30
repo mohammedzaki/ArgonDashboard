@@ -31,7 +31,7 @@ namespace ArgonDashboard.Web.Controllers
             return await DoLogin(loginModel);
         }
 
-        // POST: auth/login
+        // POST: auth/loginforswagger
         [AllowAnonymous]
         [HttpPost("loginforswagger")]
         public async Task<ActionResult<LoginResponse>> PostFromUsersLogin([FromForm] LoginModel loginModel)
@@ -72,6 +72,7 @@ namespace ArgonDashboard.Web.Controllers
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                     );
                 var tokenStr = new JwtSecurityTokenHandler().WriteToken(token);
+
                 return new LoginResponse
                 {
                     Token = tokenStr,

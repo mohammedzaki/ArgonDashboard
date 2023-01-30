@@ -18,7 +18,8 @@ export default class BaseApi {
     async postData(path, postData) {
         let response = await axios.post(`${this.getBaseUrl()}/${path}`, postData, {
             headers: {
-                'content-type': 'application/json-patch+json'
+                'content-type': 'application/json-patch+json',
+                'Authorization': `Bearer ${store.state.localStorage.apiAccessToken}`
             }
         });
         return response.data;
