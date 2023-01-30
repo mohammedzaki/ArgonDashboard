@@ -51,9 +51,15 @@ export default createStore({
     },
     initialiseStore(state) {
       // Check if the ID exists
-      if(localStorage.getItem('store.localStorage')) {
+      if (localStorage.getItem('store.localStorage')) {
         // Replace the state object with the stored item
         state.localStorage = JSON.parse(localStorage.getItem('store.localStorage'));
+      } else {
+        state.localStorage = {
+          isAuthenticated: false,
+          apiAccessToken: ''
+        };
+        localStorage.setItem('store.localStorage', JSON.stringify(state.localStorage));
       }
     },
     updateStore(state) {
