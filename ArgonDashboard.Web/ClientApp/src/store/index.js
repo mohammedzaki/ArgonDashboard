@@ -16,7 +16,11 @@ export default createStore({
     showNavbar: true,
     showFooter: true,
     showMain: true,
-    layout: "default"
+    layout: "default",
+    localStorage: {
+      isAuthenticated: false,
+      apiAccessToken: ''
+    }
   },
   mutations: {
     toggleConfigurator(state) {
@@ -44,6 +48,17 @@ export default createStore({
       } else {
         state.isNavFixed = false;
       }
+    },
+    initialiseStore(state) {
+      // Check if the ID exists
+      if(localStorage.getItem('store.localStorage')) {
+        // Replace the state object with the stored item
+        state.localStorage = JSON.parse(localStorage.getItem('store.localStorage'));
+      }
+    },
+    updateStore(state) {
+      localStorage.setItem('store.localStorage', JSON.stringify(state.localStorage));
+      console.log('store updated');
     }
   },
   actions: {

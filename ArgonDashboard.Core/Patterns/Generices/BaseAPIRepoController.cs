@@ -4,6 +4,7 @@ using ArgonDashboard.Core.Patterns.Repositroy;
 
 namespace ArgonDashboard.Core.Patterns.Generices
 {
+    [Authorize]
     public class BaseAPIRepoController<TEntity, TKey> : GenericAPIRepoController<IRepository<TEntity, TKey>, TEntity, TKey>
         where TEntity : class, IEntity<TKey>, new()
         where TKey : struct,

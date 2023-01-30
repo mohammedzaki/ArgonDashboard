@@ -7,6 +7,7 @@ import RTL from "../views/Rtl.vue";
 import Profile from "../views/Profile.vue";
 import Signup from "../views/Signup.vue";
 import Signin from "../views/Signin.vue";
+import store from "../store";
 
 const routes = [
   {
@@ -62,5 +63,8 @@ const router = createRouter({
   routes,
   linkActiveClass: "active",
 });
-
+router.beforeEach((to, from, next) => {
+  if (to.name !== 'Signin' && !store.state.localStorage.isAuthenticated) next({ name: 'Signin' })
+  else next()
+});
 export default router;

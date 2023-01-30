@@ -2,7 +2,7 @@
   <div class="py-4 container-fluid">
     <div class=" row">
       <div class="col-12">
-        <departments-table :departments="departments" />
+        <departments-table :departments="departmentsFromServer" />
       </div>
     </div>
     <div class=" row">
@@ -57,11 +57,11 @@ export default {
           classIcon: "text-dark ni ni-note-03",
         },
       },
-      departments: Array
+      departmentsFromServer: Array
     };
   },
   async beforeMount() {
-    this.departments = await departmentApi.getAll();
+      this.departmentsFromServer = await departmentApi.getAll();
   }
 };
 </script>

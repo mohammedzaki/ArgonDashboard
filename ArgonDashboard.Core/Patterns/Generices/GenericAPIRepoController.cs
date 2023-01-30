@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using ArgonDashboard.Helpers;
 using Microsoft.AspNetCore.Http;
 using ArgonDashboard.Core.Patterns.Repositroy;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ArgonDashboard.Core.Patterns.Generices
 {

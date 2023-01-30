@@ -22,9 +22,9 @@
                   <p class="mb-0">Enter your email and password to sign in</p>
                 </div>
                 <div class="card-body">
-                  <form role="form">
+                  <form role="form" @submit.prevent="doLogin">
                     <div class="mb-3">
-                      <argon-input type="email" placeholder="Email" name="email" size="lg" />
+                      <argon-input type="text" placeholder="Username" name="username" size="lg" />
                     </div>
                     <div class="mb-3">
                       <argon-input type="password" placeholder="Password" name="password" size="lg" />
@@ -82,6 +82,7 @@ import Navbar from "@/examples/PageLayout/Navbar.vue";
 import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonSwitch from "@/components/ArgonSwitch.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
+import {usersApi} from '../apis';
 const body = document.getElementsByTagName("body")[0];
 
 export default {
@@ -91,6 +92,12 @@ export default {
     ArgonInput,
     ArgonSwitch,
     ArgonButton,
+  },
+  data() {
+    return {
+      username: '',
+      password: ''
+    }
   },
   created() {
     this.$store.state.hideConfigButton = true;
@@ -106,5 +113,23 @@ export default {
     this.$store.state.showFooter = true;
     body.classList.add("bg-gray-100");
   },
+  methods: {
+    doLogin(submitEvent) {
+      this.username = submitEvent.target.elements.username.value;
+      this.password = submitEvent.target.elements.password.value;
+      usersApi.login(this.username, this.password)
+          .then((response) => {
+            this.$store.state.localStorage.isAuthenticated = true;
+            this.$store.state.localStorage.apiAccessToken = response.access_token;
+            this.$store.commit('updateStore');
+            this.$router.push('dashboard-default');
+          })
+          .catch((error) => {
+            if (error.code == "ERR_BAD_REQUEST") {
+              alert("Invalid username or password")
+            }
+          });
+    }
+  }
 };
 </script>

@@ -10,7 +10,7 @@ var Configuration = builder.Configuration;
 
 var mySqlConnectionString = Configuration.GetConnectionString("SqLiteDatabase");
 
-var migrationsAssembly = "ArgonDashboard.Migrations";
+var migrationsAssembly = typeof(Program).GetTypeInfo().Assembly.GetName().Name;
 
 builder.Services.AddDbContext<ArgonDbContext>(options =>
     options.UseSqlite(mySqlConnectionString, b => b.MigrationsAssembly(migrationsAssembly))

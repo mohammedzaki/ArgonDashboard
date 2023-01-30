@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ArgonDashboard.Core.Patterns.Repositroy;
+using System.ComponentModel.DataAnnotations;
 
 namespace ArgonDashboard.Core.Data.Entities 
 {
@@ -15,5 +16,9 @@ namespace ArgonDashboard.Core.Data.Entities
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
+
+        [NotMapped]
+        //[Required]
+        public string Password { get; set; }
     }
 }

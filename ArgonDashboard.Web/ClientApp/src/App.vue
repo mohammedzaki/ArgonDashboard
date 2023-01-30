@@ -81,6 +81,9 @@ export default {
   },
   beforeMount() {
     this.$store.state.isTransparent = "bg-transparent";
+  },
+  beforeCreate() {
+    this.$store.commit("initialiseStore");
   }
 };
 </script>
